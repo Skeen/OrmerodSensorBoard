@@ -1,0 +1,9 @@
+project.eeprom.hex
+project.efuse.hex
+project.elf
+project.flash.hex
+project.fuses.hex
+project.hfuse.hex
+project.lfuse.hex
+project.lst
+project.o
