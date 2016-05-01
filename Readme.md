@@ -2,6 +2,7 @@ This folder contains the firmware sources for the Mini-differential-IR board.
 The firmware is compiled using avr-gcc.
 
 Original repository at: https://github.com/dc42/OrmerodSensorBoard
+Makefile from: http://electronics.stackexchange.com/a/66163/61957
 
 Licence and copyright
 =====================
