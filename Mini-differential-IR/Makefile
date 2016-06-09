@@ -2,8 +2,8 @@ baud=19200
 src=project
 avrType=attiny45
 avrFreq=8000000uL # 4MHz for accurate baudrate timing
-programmerDev=/dev/ttyUSB1
-programmerType=stk500v1
+programmerDev=/dev/ttyUSB0
+programmerType=stk500v2
 
 cflags=-g -DF_CPU=$(avrFreq) -Wall -Os -Werror -Wextra
 
@@ -58,13 +58,13 @@ disassemble: elf
 	avr-objdump -C -d $(src).elf 2>&1
 
 eeprom: hex
-	#avrdude -p$(avrType) -c$(programmerType) -P$(programmerDev) -b$(baud) -v -U eeprom:w:$(src).eeprom.hex
+	#avrdude -p$(avrType) -c$(programmerType) -P$(programmerDev)  -v -U eeprom:w:$(src).eeprom.hex
 	date
 
 fuses: hex
-	avrdude -p$(avrType) -c$(programmerType) -P$(programmerDev) -b$(baud) -v -U lfuse:w:$(src).lfuse.hex
-	#avrdude -p$(avrType) -c$(programmerType) -P$(programmerDev) -b$(baud) -v -U hfuse:w:$(src).hfuse.hex
-	#avrdude -p$(avrType) -c$(programmerType) -P$(programmerDev) -b$(baud) -v -U efuse:w:$(src).efuse.hex
+	avrdude -p$(avrType) -c$(programmerType) -P$(programmerDev)  -v -U lfuse:w:$(src).lfuse.hex
+	#avrdude -p$(avrType) -c$(programmerType) -P$(programmerDev)  -v -U hfuse:w:$(src).hfuse.hex
+	#avrdude -p$(avrType) -c$(programmerType) -P$(programmerDev)  -v -U efuse:w:$(src).efuse.hex
 	date
 
 dumpelf: elf
@@ -73,10 +73,10 @@ dumpelf: elf
 program: flash eeprom fuses
 
 flash: hex
-	avrdude -p$(avrType) -c$(programmerType) -P$(programmerDev) -b$(baud) -v -U flash:w:$(src).flash.hex
+	avrdude -p$(avrType) -c$(programmerType) -P$(programmerDev)  -v -U flash:w:$(src).flash.hex
 	date
 
 backup:
 	@for memory in $(memoryTypes); do \
-        avrdude -p $(avrType) -c$(programmerType) -P$(programmerDev) -b$(baud) -v -U $$memory:r:./$(avrType).$$memory.hex:i; \
+        avrdude -p $(avrType) -c$(programmerType) -P$(programmerDev)  -v -U $$memory:r:./$(avrType).$$memory.hex:i; \
     done
